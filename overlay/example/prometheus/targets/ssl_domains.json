@@ -1,0 +1,4 @@
+[
+	{"labels": {"domain_label": "example.com", "proxy": "lb1.example.com"}, "targets": ["example.com"]},
+	{"labels": {"domain_label": "youtube.com", "proxy": "lb1.google.com"}, "targets": ["youtube.com"]}
+]

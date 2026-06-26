@@ -1,0 +1,52 @@
+# prometheus/prometheus.yml
+global:
+  scrape_interval: 15s
+
+remote_write:
+  - url: http://mimir:9009/api/v1/push
+
+scrape_configs:
+  - job_name: 'prometheus'
+    basic_auth:
+      username: 'admin'
+      password: 'changeme'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: loki-metrics
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+        - loki:3100
+
+  - job_name: grafana-metrics
+    metrics_path: /metrics
+    scrape_interval: 15s
+    scrape_timeout: 10s
+    static_configs:
+      - targets:
+        - grafana:3000
+
+  - job_name: ssl-exporter
+    metrics_path: /metrics
+    scrape_interval: 5m
+    scrape_timeout: 30s
+    file_sd_configs:
+      - files:
+        - '/etc/prometheus/targets/ssl_domains.json'
+
+    authorization:
+        type: Bearer
+        credentials: "changeme"
+
+    relabel_configs:
+        - source_labels: [__address__]
+          target_label: __param_target
+
+        - source_labels: [__param_target]
+          target_label: instance
+
+        - target_label: __address__
+          replacement: ssl-exporter:9123

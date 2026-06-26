@@ -1,0 +1,22 @@
+include: 
+  - ../../../base/prometheus/compose.yml
+
+services:
+  prometheus:
+    labels:
+      caddy: ${DOMAIN}
+      caddy.reverse_proxy: "http://prometheus:9090"
+      caddy.tls: /certs/${CERT_DOMAIN}/fullchain.pem /certs/${CERT_DOMAIN}/privkey.pem
+    networks:
+      - caddy
+    volumes:
+      - ./priv_prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./priv_targets:/etc/prometheus/targets:ro
+      - ./priv_web.yml:/etc/prometheus/web.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.config.file=/etc/prometheus/web.yml'
+
+networks:
+  caddy:
+    external: true

@@ -1,3 +1,4 @@
 override.env
 compose.env
-config.yml
+priv_*
+priv_*/

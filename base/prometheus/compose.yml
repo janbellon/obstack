@@ -1,0 +1,10 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--storage.tsdb.retention.time=15d'
+volumes:
+  prometheus_data: {}
