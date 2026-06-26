@@ -1,0 +1,9 @@
+include: 
+  - ../../../base/mimir/compose.yml
+
+services:
+  mimir:
+    command:
+      - -config.file=/etc/mimir.yaml
+    volumes:
+      - ./mimir.yaml:/etc/mimir.yaml

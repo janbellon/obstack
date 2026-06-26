@@ -1,0 +1,30 @@
+include: 
+  - ../../../base/mimir/compose.yml
+
+services:
+  mimir:
+    labels:
+      caddy: ${DOMAIN}
+      caddy.reverse_proxy: "http://mimir:9009"
+      caddy.tls: /certs/${CERT_DOMAIN}/fullchain.pem /certs/${CERT_DOMAIN}/privkey.pem
+      caddy.basic_auth: "/*"
+      caddy.basic_auth.${HTTP_BASIC_USER}: "${HTTP_BASIC_HASH}"
+    env_file: 
+      - path: override.env
+        required: true
+    networks:
+      - caddy
+    command:
+      - -config.file=/etc/mimir.yaml
+      - -config.expand-env=true
+    volumes:
+      - ./mimir.yaml:/etc/mimir.yaml
+      - mimir_data:/data
+    restart: unless-stopped
+
+volumes:
+  mimir_data:
+
+networks:
+  caddy:
+    external: true

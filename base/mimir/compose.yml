@@ -1,0 +1,12 @@
+services:
+  mimir:
+    image: grafana/mimir:latest
+    container_name: mimir
+    command:
+      - -target=all
+    volumes:
+      - mimir_data:/data
+    restart: unless-stopped
+
+volumes:
+  mimir_data:
