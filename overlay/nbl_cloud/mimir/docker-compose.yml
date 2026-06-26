@@ -8,7 +8,7 @@ services:
       caddy.reverse_proxy: "http://mimir:9009"
       caddy.tls: /certs/${CERT_DOMAIN}/fullchain.pem /certs/${CERT_DOMAIN}/privkey.pem
       caddy.basic_auth: "/*"
-      caddy.basic_auth.${HTTP_BASIC_USER}: "${HTTP_BASIC_HASH}"
+      caddy.basic_auth.mimir: "${HTTP_BASIC_HASH}"
     env_file: 
       - path: override.env
         required: true
