@@ -1,0 +1,13 @@
+include:
+  - ../../../base/grafana/compose.yml
+
+services:
+  grafana:
+    env_file:
+      - path: override.env
+        required: true
+
+  grafana-renderer:
+    env_file:
+      - path: override.env
+        required: true

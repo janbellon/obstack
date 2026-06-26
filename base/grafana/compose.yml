@@ -1,0 +1,29 @@
+services:
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    restart: unless-stopped
+    networks:
+      - grafana
+    env_file: 
+      - path: default.env
+        required: true
+    volumes:
+      - grafana-data:/var/lib/grafana
+
+  grafana-renderer:
+    image: grafana/grafana-image-renderer:latest
+    container_name: grafana-renderer
+    env_file:
+      - path: default.env
+        required: true
+    networks:
+      - grafana
+
+volumes:
+  grafana-data:
+
+networks:
+  grafana:
+  caddy:
+    external: true
