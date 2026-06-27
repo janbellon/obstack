@@ -1,0 +1,15 @@
+include:
+  - ../../../base/loki/compose.yml
+
+services:
+  loki:
+    command: 
+      - "-config.file=/etc/loki/config.yml"
+    volumes:
+      - ./loki.yaml:/etc/loki/config.yml:ro
+    networks:
+      - caddy
+
+networks:
+  caddy:
+    external: true
