@@ -1,0 +1,8 @@
+include:
+  - ../../../base/influxdb/compose.yml
+
+services:
+  influxdb:
+    env_file: 
+    - path: override.env
+      required: true  

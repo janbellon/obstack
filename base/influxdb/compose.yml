@@ -1,0 +1,15 @@
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: influx_db
+    restart: unless-stopped
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+      - influxdb-config:/etc/influxdb2
+    env_file: 
+    - path: default.env
+      required: true
+
+volumes:
+  influxdb-data:
+  influxdb-config:

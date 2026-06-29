@@ -1,0 +1,17 @@
+include:
+  - ../../../base/influxdb/compose.yml
+
+services:
+  influxdb:
+    labels:
+      caddy: influxdb.nobell.fr
+      caddy.reverse_proxy: "http://influxdb:8086"
+    env_file: 
+      - path: override.env
+        required: true
+    networks:
+      - caddy
+
+networks:
+  caddy:
+    external: true
