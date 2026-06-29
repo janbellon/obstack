@@ -11,6 +11,7 @@ services:
       caddy.respond: "@forbidden 403"
     networks:
       - caddy
+      - mailserver
     env_file:
       - path: override.env
         required: true
@@ -22,5 +23,7 @@ services:
 
 networks:
   caddy:
+    external: true
+  mailserver:
     external: true
 
