@@ -17,7 +17,7 @@ mkdir -p overlay/my_stack
 cp -r overlay/example/grafana overlay/my_stack/grafana
 ```
 ```bash
-mv overlay/my_stack/override.env.sample overlay/my_stack/override.env
+mv overlay/my_stack/grafana/override.env.sample overlay/my_stack/grafana/override.env
 ```
 
 Then edit the deployement overlay files, you can also add other ressources such as labels for caddy-docker-proxy for example.
