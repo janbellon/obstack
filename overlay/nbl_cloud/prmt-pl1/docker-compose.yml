@@ -7,6 +7,8 @@ services:
       caddy: ${DOMAIN}
       caddy.reverse_proxy: "http://prometheus:9090"
       caddy.tls: /certs/${CERT_DOMAIN}/fullchain.pem /certs/${CERT_DOMAIN}/privkey.pem
+    container_name: prmt-pl1
+    restart: unless-stopped
     networks:
       - caddy
     volumes:
