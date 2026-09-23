@@ -1,0 +1,23 @@
+include:
+  - ../../../base/loki/compose.yml
+
+services:
+  loki:
+    labels:
+      caddy: ${DOMAIN}
+      caddy.reverse_proxy: "http://loki:3100"
+      caddy.tls: /certs/${CERT_DOMAIN}/fullchain.pem /certs/${CERT_DOMAIN}/privkey.pem
+      caddy.basic_auth: "/*"
+      caddy.basic_auth.loki: "${HTTP_BASIC_HASH}"
+    command: 
+      - "-config.file=/etc/loki/config.yml"
+      - "-config.expand-env=true"
+    env_file: override.env
+    volumes:
+      - ./loki.yaml:/etc/loki/config.yml:ro
+    networks:
+      - caddy
+
+networks:
+  caddy:
+    external: true
